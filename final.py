@@ -8,6 +8,9 @@ from datetime import datetime
 # Load environment variables
 load_dotenv()
 
+
+url='https://lang-guru-1.vercel.app/learn'
+
 # Retrieve API key
 api_key = os.getenv("GROQ_API_KEY")
 if not api_key:
@@ -29,10 +32,30 @@ if "session_history" not in st.session_state:
 
 # Set layout
 st.set_page_config(page_title="AI Chatbot", page_icon="💬", layout="wide")
-
+st.image("logo.png", width=200)
 # Sidebar - Chat History & Summary Button
+
+url='logo.png'
+URL="https://lang-guru-1.vercel.app/learn"
+
+
+
 with st.sidebar:
-    st.title("📝 Chat History")
+    
+    st.markdown(
+    f"""
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; gap: 2px;">
+       <h1 style="font-size: 24px; margin: 0;">📝 Chat History</h1>
+        <a href="{URL}" target="_self" style="text-decoration: none;">
+            <button style="padding: 8px 10px; font-size: 16px; background-color: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                🔙 Back
+            </button>
+        </a>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+    
 
     # Display history of different chat sessions
     for session_key, session_data in st.session_state.session_history.items():
@@ -116,7 +139,7 @@ st.markdown("""
             color: black;
         }
         .bot-message {
-            background-color: lightblue; /* Light Gray */
+            background-color: #D9D9D9; /* Light Gray */
             border-radius: 8px;
             padding: 10px;
             font-size: 18px;
