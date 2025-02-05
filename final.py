@@ -36,7 +36,7 @@ st.image("logo.png", width=200)
 # Sidebar - Chat History & Summary Button
 
 url='logo.png'
-URL="https://lang-guru-1.vercel.app/learn"
+URL="https://lang-guru-1.vercel.app/"
 
 
 
