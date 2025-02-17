@@ -32,7 +32,7 @@ if "session_history" not in st.session_state:
 
 # Set layout
 st.set_page_config(page_title="AI Chatbot", page_icon="💬", layout="wide")
-st.image("logo.png", width=200)
+# st.image("logo.png", width=200)
 # Sidebar - Chat History & Summary Button
 
 url='logo.png'
