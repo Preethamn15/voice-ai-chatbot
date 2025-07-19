@@ -1,3 +1,5 @@
 streamlit
+gTTS
+SpeechRecognition
 groq
 python-dotenv
