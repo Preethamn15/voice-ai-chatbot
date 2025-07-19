@@ -129,12 +129,12 @@ with st.sidebar:
     # 🌗 Theme
     theme = st.radio("Theme", ["Light", "Dark"], horizontal=True)
 
-    # 🎙️ Voice Language
-    voice_lang = st.radio(
-        "🎙️ Voice Language",
-        ["English", "Hindi", "Telugu", "Kannada"]
-    )
-    selected_lang_code = lang_map[voice_lang]
+    # # 🎙️ Voice Language
+    # voice_lang = st.radio(
+    #     "🎙️ Voice Language",
+    #     ["English", "Hindi", "Telugu", "Kannada"]
+    # )
+    # selected_lang_code = lang_map[voice_lang]
 
     # 🎤 Voice Input Button
     # st.subheader("🎤 Voice Input")
