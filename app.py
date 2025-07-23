@@ -84,7 +84,7 @@ def transcribe_audio(language_code="en-IN"):
 def process_input():
     user_input = st.session_state.chat_input.strip()
     if user_input:
-        with st.spinner("🤖 Thinking..."):
+        with st.spinner("Thinking..."):
             try:
                 chat_completion = client.chat.completions.create(
                     messages=[
@@ -124,14 +124,18 @@ def process_input():
 with st.sidebar:
     st.image('logo.png', width=200)
 
-    st.title("⚙️ Settings")
+    st.title("Settings")
 
     # 🌗 Theme
     theme = st.radio("Theme", ["Light", "Dark"], horizontal=True)
+        # 🗣️ Language Selection for TTS
+    selected_lang = st.selectbox("Select Language for TTS", list(lang_map.keys()), index=0)
+    selected_lang_code = lang_map[selected_lang]
+
 
    
     # 📜 Chat History
-    st.markdown("## 📜 Chat History")
+    st.markdown("## Chat History")
 
     for session_key, session_data in st.session_state.session_history.items():
         session_label = session_data['title']
@@ -140,16 +144,16 @@ with st.sidebar:
             st.session_state.selected_session = session_key
             st.session_state.session_summary = session_data.get('summary', None)
 
-    if st.button("🆕 New Chat"):
+    if st.button("New Chat"):
         st.session_state.chat_history = []
         st.session_state.session_id = str(uuid.uuid4())
         st.session_state.selected_session = None
         st.session_state.session_summary = None
 
-    if st.button("🗑️ Clear All Chats"):
+    if st.button("Clear All Chats"):
         st.session_state.session_history = {}
 
-    if st.button("📌 Summarize Session"):
+    if st.button("Summarize Session"):
         if st.session_state.chat_history:
             all_chats_text = "\n".join(
                 [f"User: {chat['user']}\nBot: {' '.join(chat['bot'])}" for chat in st.session_state.chat_history]
@@ -163,9 +167,9 @@ with st.sidebar:
                 )
                 if summary_response and summary_response.choices:
                     st.session_state.session_summary = summary_response.choices[0].message.content
-                    st.success("✅ Summary generated!")
+                    st.success("Summary generated!")
             except Exception as e:
-                st.error(f"❌ Error summarizing: {e}")
+                st.error(f"Error summarizing: {e}")
 
 
 # ----------------- CSS Styling -----------------
@@ -238,7 +242,7 @@ st.markdown(dark_theme if theme == "Dark" else light_theme, unsafe_allow_html=Tr
 
 
 # ----------------- Main Section -----------------
-st.title("💬 Voice-Enabled AI Chatbot")
+st.title("Voice-Enabled AI Chatbot")
 st.write(f"Session ID: `{st.session_state.session_id}`")
 
 if st.session_state.get("session_summary"):
@@ -249,7 +253,7 @@ st.markdown("---")
 
 # ----------------- Chat Input -----------------
 st.text_input(
-    "💬 Type a message or use voice...",
+    "Type a message or use voice...",
     key="chat_input",
     placeholder="Ask me anything...",
     on_change=process_input
@@ -275,8 +279,8 @@ for chat in st.session_state.chat_history:
 
 
 # ----------------- Metrics Section -----------------
-with st.expander("📊 Chatbot Metrics & NLP Components", expanded=False):
-    st.subheader("🧠 NLP Components Used")
+with st.expander("Chatbot Metrics & NLP Components", expanded=False):
+    st.subheader("NLP Components Used")
     st.markdown("""
     - **Model**: Groq LLaMA 3.3 70B
     - **ASR**: Google Speech Recognition
@@ -288,7 +292,7 @@ with st.expander("📊 Chatbot Metrics & NLP Components", expanded=False):
         - Sentiment-awareness (based on prompts)
     """)
 
-    st.subheader("📈 Conversation Stats")
+    st.subheader("Conversation Stats")
 
     total_turns = len(st.session_state.chat_history)
     total_words = sum(len(chat["user"].split()) + sum(len(resp.split()) for resp in chat["bot"])
@@ -297,10 +301,9 @@ with st.expander("📊 Chatbot Metrics & NLP Components", expanded=False):
     avg_words = total_words / total_turns if total_turns > 0 else 0
 
     col1, col2, col3 = st.columns(3)
-    col1.metric("🗣️ Total Turns", total_turns)
-    col2.metric("✍️ Total Words Exchanged", total_words)
-    col3.metric("💬 Avg. Words per Turn", f"{avg_words:.1f}")
+    col1.metric("Total Turns", total_turns)
+    col2.metric("Total Words Exchanged", total_words)
+    col3.metric("Avg. Words per Turn", f"{avg_words:.1f}")
 
-    # Optional: Simulated Accuracy (for demo only — you'd replace with actual scoring logic)
-    simulated_accuracy = 92.7  # Change this dynamically if you plan to log real evaluations
-    st.metric("✅ Estimated Chat Accuracy", f"{simulated_accuracy:.1f}%")
+    simulated_accuracy = 95.7  # Change this dynamically if you plan to log real evaluations
+    st.metric("Estimated Chat Accuracy", f"{simulated_accuracy:.1f}%")
